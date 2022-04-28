@@ -51,7 +51,7 @@ $(document).ready(function() {
     };
     var pieData = [
         {
-            value: 30,
+            value: transaction_y[1],
             color:"#F38630"
         },
         {
@@ -71,7 +71,7 @@ $(document).ready(function() {
             {
                 fillColor: "rgba(220,220,220,0.5)",
                 strokeColor: "rgba(220,220,220,1)",
-                data: count_y
+                data: transaction_y
             },
             {
                 fillColor: "rgba(151,187,205,0.5)",
@@ -115,7 +115,7 @@ $(document).ready(function() {
                 strokeColor : "rgba(220,220,220,1)",
                 pointColor : "rgba(220,220,220,1)",
                 pointStrokeColor : "#fff",
-                data : [65,59,90,81,56,55,40]
+                data : transaction_y
             },
             {
                 fillColor : "rgba(151,187,205,0.5)",

@@ -1,7 +1,45 @@
 <!DOCTYPE html>
 <html lang="en"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="_layout">
+      layout:decorate="_layout" xmlns:background-size="http://www.w3.org/1999/xhtml">
+<head>
+    <th:block layout:fragment="script">
+        <script th:inline="javascript">
+            var truck = [[${employee}]]
+        </script>
+        <script th:src="@{https://www.gstatic.com/charts/loader.js}"></script>
+    </th:block>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+        google.charts.load('current', {'packages':['corechart']});
+        google.charts.setOnLoadCallback(drawChart);
+        // var transaction_y = truck.map(x => x["employee_count"])
+        function drawChart() {
+            var data = google.visualization.arrayToDataTable([
+                ['Year', 'Sales', 'Expenses'],
+                ['2004',  1000,      400],
+                ['2005',  1170,      460],
+                ['2006',  660,       1120],
+                ['2007',  truck,      540]
+            ]);
+
+
+
+            var options = {
+                title: 'Company Performance',
+                curveType: 'function',
+                legend: { position: 'bottom' }
+            };
+
+            var chart = new google.visualization.LineChart(document.getElementById('curve_chart'));
+
+            chart.draw(data, options);
+
+        }
+    </script>
+
+</head>
+
 
 <body>
     <!--main content start-->
@@ -22,14 +60,15 @@
                 <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
                     <div class="info-box blue-bg">
                         <i class="fa fa-truck"></i>
-                        <div class="count">120</div>
+                        <!--/*@thymesVar id="getTruckCount" type=""*/-->
+                        <div class="count" th:text="${truck.getTruckCount()}"></div>
                         <div class="title">Trucks</div>
                     </div>
                     <!--/.info-box-->
                 </div>
                 <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
                     <div class="info-box brown-bg">
-                        <i class="fa fa-car"></i>
+                        <i class="fa fa-money"></i>
                         <div class="count">450</div>
                         <div class="title">Cars</div>
                     </div>
@@ -39,7 +78,7 @@
                 <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
                     <div class="info-box dark-bg">
                         <i class="fa fa-user"></i>
-                        <div class="count">1000</div>
+                        <div class="count" th:text="${truck.getEmployeeCount()}"></div>
                         <div class="title">Employees</div>
                     </div>
                     <!--/.info-box-->
@@ -47,8 +86,8 @@
                 <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
                     <div class="info-box green-bg">
                         <i class="fa fa-location-arrow"></i>
-                        <div class="count">46</div>
-                        <div class="title">Locations</div>
+                        <div class="count" th:text="${truck.getTransactionCount()}"></div>
+                        <div class="title">Transactions</div>
                     </div>
                     <!--/.info-box-->
                 </div>
@@ -58,10 +97,14 @@
                 <div class="col-lg-9 col-md-12">
 
                     <div class="panel panel-default">
+                        <div id="curve_chart" style="width: 980px; height: 520px"></div>
+<!--                        <li>-->
+<!--                            <div><span id="todayspark5" class="spark"></span></div>-->
+<!--                            <div class="datas-text">12,000000 visitors every Month</div>-->
+<!--                        </li>-->
 
-                        <div >
-                            <div style="background-image: url('img/bg-11.jpg'); background-size:100% 100%; height:400px;"></div>
-                        </div>
+<!--                            <div style="background-image: url('img/bg-11.jpg'); background-size:100% 100%; height:400px;"></div>-->
+
 
                     </div>
                 </div>
@@ -633,5 +676,6 @@
     </div>
     <!--main content end-->
 </body>
+
 
 </html>

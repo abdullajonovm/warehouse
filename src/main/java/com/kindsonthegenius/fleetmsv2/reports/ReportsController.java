@@ -23,8 +23,13 @@ public class ReportsController {
 
     @GetMapping("/reports/accounts")
     public String accounts(Model model) {
+
         model.addAttribute("transactions", transactionRepository.findAll());
         model.addAttribute("employeeCount", employeeRepository.getCountByCountry());
+
+
+
+
         return "/reports/accounts";
     }
 
